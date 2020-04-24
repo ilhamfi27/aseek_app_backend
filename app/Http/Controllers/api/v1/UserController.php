@@ -33,6 +33,7 @@ class UserController extends Controller
             $response['success'] = true;
             $response['user_id'] = $user->id;
             $response['username'] = $user->username;
+            $response['name'] = $user->name;
             $response['email'] = $user->email;
             $response['level'] = $user->level;
 
