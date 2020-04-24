@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentParent extends Model
 {
-    protected $table = 'orang_tua';
+    protected $table = 'parents';
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,11 @@ class StudentParent extends Model
      * @var array
      */
     protected $fillable = [
-        'nama', 'alamat', 'no_hp'
+        'name',
+        'address',
+        'phone_number',
+        'student_id',
+        'user_id',
     ];
 
     public function user()
@@ -24,6 +28,6 @@ class StudentParent extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\Student', 'id_siswa', 'id');
+        return $this->belongsTo('App\Student', 'student_id', 'id');
     }
 }

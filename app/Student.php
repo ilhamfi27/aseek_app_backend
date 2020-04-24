@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected $table = 'siswa';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nis', 'nama', 'alamat', 'no_hp'
+        'nis',
+        'name',
+        'address',
+        'phone_number',
+        'user_id',
     ];
 
     public function user()
@@ -24,7 +26,7 @@ class Student extends Model
 
     public function parent()
     {
-        return $this->hasOne('App\StudentParent', 'id_siswa');
+        return $this->hasOne('App\StudentParent', 'student_id');
     }
 
     public function location()

@@ -13,12 +13,12 @@ class CreateRelationBetweenParentAndStudent extends Migration
      */
     public function up()
     {
-        Schema::table('orang_tua', function (Blueprint $table) {
-            $table->bigInteger('id_siswa')->unsigned()->nullable()->default(null);
-            $table->index('id_siswa');
-            $table->foreign('id_siswa')
+        Schema::table('parents', function (Blueprint $table) {
+            $table->bigInteger('student_id')->unsigned()->nullable()->default(null);
+            $table->index('student_id');
+            $table->foreign('student_id')
                   ->references('id')
-                  ->on('siswa')
+                  ->on('students')
                   ->onDelete('cascade');
         });
     }
@@ -30,10 +30,10 @@ class CreateRelationBetweenParentAndStudent extends Migration
      */
     public function down()
     {
-        Schema::table('orang_tua', function (Blueprint $table) {
-            $table->dropForeign(['id_siswa']);
-            $table->dropIndex(['id_siswa']);
-            $table->dropColumn('id_siswa');
+        Schema::table('parents', function (Blueprint $table) {
+            $table->dropForeign(['student_id']);
+            $table->dropIndex(['student_id']);
+            $table->dropColumn('student_id');
         });
     }
 }

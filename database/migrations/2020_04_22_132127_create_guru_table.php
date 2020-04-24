@@ -13,11 +13,11 @@ class CreateGuruTable extends Migration
      */
     public function up()
     {
-        Schema::create('guru', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('name');
             $table->string('nip');
-            $table->string('jabatan');
+            $table->string('position');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')
@@ -34,6 +34,6 @@ class CreateGuruTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guru');
+        Schema::dropIfExists('teachers');
     }
 }

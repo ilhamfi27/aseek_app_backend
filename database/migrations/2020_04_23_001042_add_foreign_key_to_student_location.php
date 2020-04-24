@@ -14,11 +14,11 @@ class AddForeignKeyToStudentLocation extends Migration
     public function up()
     {
         Schema::table('student_locations', function (Blueprint $table) {
-            $table->bigInteger('id_siswa')->unsigned();
-            $table->index('id_siswa');
-            $table->foreign('id_siswa')
+            $table->bigInteger('student_id')->unsigned();
+            $table->index('student_id');
+            $table->foreign('student_id')
                   ->references('id')
-                  ->on('siswa')
+                  ->on('students')
                   ->onDelete('cascade');
         });
     }
@@ -31,9 +31,9 @@ class AddForeignKeyToStudentLocation extends Migration
     public function down()
     {
         Schema::table('student_locations', function (Blueprint $table) {
-            $table->dropForeign(['id_siswa']);
-            $table->dropIndex(['id_siswa']);
-            $table->dropColumn('id_siswa');
+            $table->dropForeign(['student_id']);
+            $table->dropIndex(['student_id']);
+            $table->dropColumn('student_id');
         });
     }
 }

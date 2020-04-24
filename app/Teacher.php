@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
-    protected $table = 'guru';
+    protected $table = 'teachers';
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,10 @@ class Teacher extends Model
      * @var array
      */
     protected $fillable = [
-        'nama', 'nip', 'jabatan'
+        'name', 
+        'nip', 
+        'position',
+        'user_id',
     ];
 
     public function user()

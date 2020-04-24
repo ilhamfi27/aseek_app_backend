@@ -13,11 +13,11 @@ class CreateOrangTuaTable extends Migration
      */
     public function up()
     {
-        Schema::create('orang_tua', function (Blueprint $table) {
+        Schema::create('parents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
-            $table->string('alamat');
-            $table->string('no_hp');
+            $table->string('name');
+            $table->string('address');
+            $table->string('phone_number');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')
@@ -34,6 +34,6 @@ class CreateOrangTuaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orang_tua');
+        Schema::dropIfExists('parents');
     }
 }
