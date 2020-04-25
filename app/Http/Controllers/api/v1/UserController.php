@@ -71,13 +71,13 @@ class UserController extends Controller
             $rules = array_merge($rules, [
                 'address' => 'required',
                 'phone_number' => 'required|numeric',
-                'nis' => 'required|numeric',
+                'nis' => 'required|numeric|unique:students',
             ]);
         } else if ($input['level'] == 'sekolah') {
             // rules for guru / sekolah
             $rules = array_merge($rules, [
                 'position' => 'required',
-                'nip' => 'required|numeric',
+                'nip' => 'required|numeric|unique:teachers',
             ]);
         }
 
@@ -114,6 +114,9 @@ class UserController extends Controller
             DB::commit();
         } catch (\Exception  $e) {
             DB::rollback();
+
+            $response['message'] = "An error occured";
+            return response()->json($response, 500);
         }
 
         $response['success'] = true;
@@ -121,6 +124,31 @@ class UserController extends Controller
         return response()->json($response, 200);
     }
 
+    public function profile(Request $request)
+    {
+        $user = Auth::user();
+        switch ($user->level) {
+            case 'siswa':
+                $user->profile = $user->student()->first();
+                break;
+
+            case 'sekolah':
+                $user->profile = $user->teacher()->first();
+                break;
+
+            case 'wali':
+                $user->profile = $user->studentParent()->first();
+                break;
+
+            default:
+                break;
+        }
+
+        return response()->json([
+            'data' => $user,
+        ], 200);
+    }
+    
     private function checkStudentAvailability($id)
     {
         $studentDontExist = Student::find($id) == null;
