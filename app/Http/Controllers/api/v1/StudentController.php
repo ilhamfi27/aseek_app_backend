@@ -9,13 +9,5 @@ use App\User;
 
 class StudentController extends Controller
 {
-    public function profile(Request $request)
-    {
-        $user = Auth::user();
-        $user->profile = $user->student()->first();
-
-        return response()->json([
-            'data' => $user,
-        ], 200);
-    }
+    //
 }

@@ -9,24 +9,36 @@ use App\User;
 
 class ParentController extends Controller
 {
-    public function profile(Request $request)
-    {
-        $user = Auth::user();
-        $user->profile = $user->studentParent()->first();
-
-        return response()->json([
-            'data' => $user,
-        ], 200);
-    }
-
     public function childData(Request $request)
     {
         $user = Auth::user();
-        $parent = $user->studentParent()->first();
-        $child_data = $parent->student()->first();
+        
+        if ($user->level != "wali") {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
 
-        return response()->json([
-            'data' => $child_data,
-        ], 200);
+        $parent = $user->studentParent()->first();
+        $childData = $parent->student()->first();
+
+        return response()->json($childData, 200);
+    }
+
+    public function childLocation(Request $request)
+    {
+        $user = Auth::user();
+        
+        if ($user->level != "wali") {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+        
+        $parent = $user->studentParent()->first();
+        $childData = $parent->student()->first();
+        $lastLocation = $childData->location()->get();
+
+        return response()->json($lastLocation, 200);
     }
 }

@@ -5,16 +5,22 @@ namespace App\Http\Controllers\api\v1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use App\Student;
 
 class TeacherController extends Controller
 {
-    public function profile(Request $request)
+    public function showAllStudents(Request $request)
     {
-        $userProfile = User::with('teacher')->find(Auth::id());
+        $user = Auth::user();
+        
+        if ($user->level != "sekolah") {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
 
-        return response()->json([
-            'data' => $userProfile,
-        ], 200);
+        $students = Student::all();
+        
+        return response()->json($students, 200);
     }
 }

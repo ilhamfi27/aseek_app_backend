@@ -37,10 +37,7 @@ class UserController extends Controller
             $response['email'] = $user->email;
             $response['level'] = $user->level;
 
-            return response()->json(
-                $response,
-                200
-            );
+            return response()->json($response, 200);
         } else {
             return response()->json([
                 'error' => 'Unauthorized'
@@ -144,9 +141,7 @@ class UserController extends Controller
                 break;
         }
 
-        return response()->json([
-            'data' => $user,
-        ], 200);
+        return response()->json($user, 200);
     }
     
     private function checkStudentAvailability($id)
