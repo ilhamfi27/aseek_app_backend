@@ -24,21 +24,4 @@ class ParentController extends Controller
 
         return response()->json($childData, 200);
     }
-
-    public function childLocation(Request $request)
-    {
-        $user = Auth::user();
-        
-        if ($user->level != "wali") {
-            return response()->json([
-                'error' => 'Unauthorized'
-            ], 401);
-        }
-        
-        $parent = $user->studentParent()->first();
-        $childData = $parent->student()->first();
-        $lastLocation = $childData->location()->get();
-
-        return response()->json($lastLocation, 200);
-    }
 }
